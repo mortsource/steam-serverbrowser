@@ -13,7 +13,7 @@
 Server Browser+ is a plugin for the native Steam game server browser. This project requires [Millennium aka SteamBrew](https://steambrew.app), a framework for Steam. It is used commonly for themes but also plugins, install is quick and simple. Report any issues or suggest improvements, this is in active development.
 
 ## Enhanced Browsing 
-<img src="./docs/readme_enhanced.PNG" width="750" style="padding-bottom: 30px">  
+![image](./docs/readme_enhanced.PNG)  
 
 Splits the native browser into two panes: a virtualized server list with images and a live Leaflet map, synced together. Servers are clustered by region and expand when zoomed. Filters and context menus behave as expected. Quick access tabs for popular games and removed dead games.
 
@@ -24,7 +24,7 @@ Splits the native browser into two panes: a virtualized server list with images 
     <img alt="CSGO" src="https://img.shields.io/badge/cs_go-enabled-brightgreen?style=for-he-badge">
 </p>
 
-<img src="./docs/readme_filtering.PNG" width="750" style="padding-bottom: 30px">  
+![image](./docs/readme_filtering.PNG)  
 
 Individually toggleable filters made to catch different types of master server abuse within the Counter-Strike franchise. Filters sit between the callback to the server browser and add virtually zero overhead by using compiled RegEx patterns, subnet masks and GeoLite MMDB.
 
