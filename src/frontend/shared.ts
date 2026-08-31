@@ -50,9 +50,15 @@ export const VERIFIED_NAME_MARKER = '​';
 export let NEW_VERSION_AVAILABLE = false;
 let verifiedSetCache: Set<string> | null = null;
 
+const STEAMID64_BASE = '76561197960265728'; // base SteamID64
+
+function isValidSteamId64(id: any): id is string {
+    return typeof id === 'string' && id !== '' && id !== STEAMID64_BASE;
+}
+
 function getSteamId64(): Promise<string | null> {
     const immediate = (window as any)?.App?.m_CurrentUser?.strSteamID;
-    if (typeof immediate === 'string' && immediate) return Promise.resolve(immediate);
+    if (isValidSteamId64(immediate)) return Promise.resolve(immediate);
 
     return new Promise((resolve) => {
         const steamUser = (window as any)?.SteamClient?.User;
@@ -61,7 +67,7 @@ function getSteamId64(): Promise<string | null> {
             return;
         }
         steamUser.RegisterForCurrentUserChanges((user: any) => {
-            if (user?.strSteamID) resolve(user.strSteamID);
+            if (isValidSteamId64(user?.strSteamID)) resolve(user.strSteamID);
         });
     });
 }
@@ -136,6 +142,7 @@ async function loadReader(): Promise<void> {
 }
 
 export function initGeoDatabase(): Promise<void> {
+    console.log('ServerBrowserPlus Initializing GeoLite...')
     if (!loadPromise) loadPromise = loadReader();
     return loadPromise;
 }

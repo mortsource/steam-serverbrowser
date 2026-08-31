@@ -69,11 +69,18 @@ function tryInjectWhenReady(doc: Document): void {
     }
 }
 
+let pluginDataInitialized = false;
+
 function windowCreated(context: any): void {
     const title: string = context?.m_strTitle ?? '';
     if (!title.includes('Game Servers')) return;
 
     logToConsole('Found Game Servers window', 'Info');
+
+    if (!pluginDataInitialized) {
+        pluginDataInitialized = true;
+        updatePluginData();
+    }
 
     const doc = resolveDocument(context);
     if (doc) {
@@ -129,9 +136,9 @@ function installHook(): void {
 }
 
 export default definePlugin(() => {
+    initGeoDatabase();
+
     Millennium.AddWindowCreateHook?.((ctx: any) => {
-        initGeoDatabase();
-        updatePluginData();
         windowCreated(ctx);
         installHook();
     });
